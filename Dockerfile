@@ -1,23 +1,28 @@
 FROM python:3.11-slim
 
-# 로그 버퍼 안 쌓이게
 ENV PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
 WORKDIR /app
 
-# 1) 의존성 먼저 설치
-COPY requirements.txt .
+RUN apt-get update && \
+    apt-get install -y libzbar0 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
-RUN pip install --upgrade streamlit
 
+COPY .streamlit /app/.streamlit
+COPY app.py /app/app.py
+COPY src /app/src
 
-# 2) 앱 코드 복사
-COPY . .
+ENV PYTHONPATH=/app/src:$PYTHONPATH
 
-# Streamlit 기본 포트
-EXPOSE 8501
+ENV STREAMLIT_SERVER_PORT=8501 \
+    STREAMLIT_SERVER_ADDRESS=0.0.0.0
 
-# Streamlit 실행
-CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0"]
+EXPOSE 8502
+
+CMD ["streamlit", "run", "app.py"]
