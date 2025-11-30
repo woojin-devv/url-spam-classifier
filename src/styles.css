@@ -1,0 +1,77 @@
+/* --- Google Font 임포트 --- */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Square+Neo:wght@700&display=swap');
+
+/* --- 네온 타이틀 스타일 --- */
+.neon-title {
+    font-family: 'Nanum Square Neo', sans-serif !important;
+    color: #5573EB;
+    text-shadow: 0px 0px 8px #3F5FB3, 0px 0px 16px #2944A0;
+}
+
+/* --- 전체 배경 스타일 (Streamlit App Container) --- */
+.stApp {
+    background:
+        linear-gradient(to bottom right, rgba(85, 42, 128, 0.6), rgba(12, 15, 29, 0.9) 70%),
+        /* 왼쪽 아래 진한 보라 그라데이션 */
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        /* 세로줄 */
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        /* 가로줄 */
+        #0C0F1D;
+    /* 최종 기본 배경색 */
+    background-size: cover, 50px 50px, 50px 50px;
+    background-attachment: fixed;
+    color: #E6E6F0;
+}
+
+/* --- 오른쪽 상단 빛줄기 및 입자 효과 --- */
+.stApp::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100px;
+    background: radial-gradient(circle at top right, #6C4BFF60 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.stApp::after {
+    content: '';
+    position: fixed;
+    top: 10px;
+    right: 50px;
+    width: 10px;
+    height: 10px;
+    background: #6C4BFF;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #6C4BFF, 0 0 10px #6C4BFF, 0 0 15px #6C4BFF;
+    animation: twinkle 2s infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+}
+
+/* --- Streamlit 컨테이너 투명하게 만들기 --- */
+[data-testid="stVerticalBlock"],
+.main .block-container {
+    background-color: transparent !important;
+}
+
+/* --- 사이드바 배경 조정 --- */
+.stSidebar {
+    background-color: rgba(18, 22, 41, 0.8) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}

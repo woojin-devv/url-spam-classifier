@@ -1,0 +1,15 @@
+[theme]
+base="dark"
+primaryColor="#6C4BFF"
+backgroundColor="#0C0F1D"
+secondaryBackgroundColor="#121629"
+textColor="#E6E6F0"
+font="sans serif"
+hideTopBar = true
+
+[browser]
+gatherUsageStats = false
+
+[global]
+# 햄버거 메뉴와 'Deploy' 버튼을 숨깁니다.
+showToolbar = false
