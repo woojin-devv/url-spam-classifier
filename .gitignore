@@ -1,4 +1,5 @@
 .env
 venv
-rf_full_pipeline.pkl
 test/text_result.txt
+test.py
+
