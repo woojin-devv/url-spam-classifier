@@ -16,24 +16,9 @@ def handle_qr_image(file):
     if not decoded_list:
         st.error("QR 코드를 인식하지 못했습니다. 다시 시도 해주세요.")
         return None, None
-
-    draw = ImageDraw.Draw(img)
-
+    
     # 첫 번째 QR만 사용
     d = decoded_list[0]
-
-    # --- Bounding Box 그리기 ---
-    # rect 기반
-    x, y, w, h = d.rect
-    draw.rectangle([(x, y), (x + w, y + h)], outline="red", width=4)
-
-    # polygon 기반 (더 정확)
-    points = [(p.x, p.y) for p in d.polygon]
-    if len(points) > 2:
-        draw.line(points + [points[0]], width=4, fill="red")
-
-    # Streamlit에 표시
-    st.image(img, caption="QR 코드 인식 영역", use_container_width=True, width="stretch")
 
     # 텍스트 읽기
     qr_text = d.data.decode("utf-8")
@@ -49,9 +34,6 @@ def handle_qr_image(file):
 
     # 출력
     st.success(f"QR 코드 내용: {qr_text}")
-
-    if final_url:
-        st.info(f"리디렉션 URL 링크: {final_url}")
 
     return qr_text, final_url
 

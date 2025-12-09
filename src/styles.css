@@ -75,3 +75,83 @@
     background-color: rgba(18, 22, 41, 0.8) !important;
     border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* 캡처된 정지 이미지(썸네일)만 숨기기 */
+div[data-testid="stCameraInput"] img {
+    display: none !important;
+}
+
+/*  캡처된 이미지가 들어 있는 컨테이너 박스 숨기기 */
+div[data-testid="stCameraInput"] div[data-testid="uploadedImage"] {
+    display: none !important;
+}
+
+/* --- 노트 박스 스타일 for 예측 결과 Container--- */
+/* --- RESULT CARD (Neon Dark Style) --- */
+.result-card {
+    padding: 22px;
+    border-radius: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(196, 123, 228, 0.35);
+    box-shadow: 0 0 12px rgba(196, 123, 228, 0.25);
+
+    transition: all 0.25s ease-in-out;
+}
+
+.result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(196, 123, 228, 0.45);
+}
+
+/* Title */
+.result-title {
+    font-family: 'Nanum Square Neo', sans-serif !important;
+    color: #f3eef6;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-shadow: 0px 0px 6px #8B4FD6;
+}
+
+/* Label Badge */
+.result-label {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* Normal */
+.result-safe {
+    background: rgba(50, 200, 120, 0.2);
+    color: #7FFFB0;
+    border: 1px solid rgba(140, 255, 190, 0.4);
+    text-shadow: 0 0 6px rgba(120, 255, 180, 0.6);
+}
+
+/* Dangerous */
+.result-danger {
+    background: rgba(255, 90, 90, 0.2);
+    color: #FF9B9B;
+    border: 1px solid rgba(255, 140, 140, 0.4);
+    text-shadow: 0 0 6px rgba(255, 120, 120, 0.6);
+}
+
+/* Body text */
+.result-body {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 5px;
+    color: #E9E9F5;
+    font-family: 'Nanum Square Neo', sans-serif !important;
+    padding: 6px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
