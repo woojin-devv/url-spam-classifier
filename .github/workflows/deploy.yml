@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 1) Azure Login (Service Principal 방식)
+      # 1) Azure Login
       - name: Log in to Azure
         uses: azure/login@v1
         with:
@@ -30,17 +30,16 @@ jobs:
       - name: Build Docker image
         run: docker build -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/url-spam-app:latest .
 
-      # 4) Push Docker Image to ACR
+      # 4) Push Docker Image
       - name: Push Docker image
         run: docker push ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/url-spam-app:latest
 
-      # 5) Deploy Web App (Container)
+      # 5) Deploy Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: url-spam-classifier-deployment
           images: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/url-spam-app:latest
-
         env:
           AZURE_OAI_ENDPOINT: ${{ secrets.AZURE_OAI_ENDPOINT }}
           AZURE_OAI_KEY: ${{ secrets.AZURE_OAI_KEY }}
