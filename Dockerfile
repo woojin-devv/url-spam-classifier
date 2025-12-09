@@ -18,7 +18,7 @@ RUN pip install --upgrade pip && \
 COPY app.py /app/app.py
 COPY src /app/src
 COPY .streamlit /app/.streamlit
-COPY .env /app/.env
+# COPY .env /app/.env
 COPY rf_full_pipeline_v1.pkl /app/rf_full_pipeline_v1.pkl
 COPY rf_full_pipeline_v2.pkl /app/rf_full_pipeline_v2.pkl
 COPY data /app/data
