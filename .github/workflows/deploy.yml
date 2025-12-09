@@ -12,6 +12,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 1) Azure Login (Service Principal 방식)
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 2) Login to ACR
       - name: Log in to Azure Container Registry
         uses: azure/docker-login@v1
         with:
@@ -19,19 +26,22 @@ jobs:
           username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
           password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
 
+      # 3) Build Docker Image
       - name: Build Docker image
         run: docker build -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/url-spam-app:latest .
 
+      # 4) Push Docker Image to ACR
       - name: Push Docker image
         run: docker push ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/url-spam-app:latest
 
+      # 5) Deploy Web App (Container)
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: url-spam-classifier-deployment
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/url-spam-app:latest
+
         env:
-            AZURE_OAI_ENDPOINT: ${{ secrets.AZURE_OAI_ENDPOINT }}
-            AZURE_OAI_KEY: ${{ secrets.AZURE_OAI_KEY }}
-            AZURE_OAI_DEPLOYMENT: ${{ secrets.AZURE_OAI_DEPLOYMENT }}
+          AZURE_OAI_ENDPOINT: ${{ secrets.AZURE_OAI_ENDPOINT }}
+          AZURE_OAI_KEY: ${{ secrets.AZURE_OAI_KEY }}
+          AZURE_OAI_DEPLOYMENT: ${{ secrets.AZURE_OAI_DEPLOYMENT }}
